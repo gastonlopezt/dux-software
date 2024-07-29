@@ -137,7 +137,7 @@ export default function TableContent() {
                                 totalRecords={rows}
                                 dataKey='id'
                                 emptyMessage="No se encontraron usuarios."
-                            >
+                            >                            
                                 <Column field="id" headerClassName='font-bold' header="Id" sortable style={{ width: '25%'}}></Column>
                                 <Column field="usuario"
                                     className='text-blue-600 font-bold underline' header="Usuario"

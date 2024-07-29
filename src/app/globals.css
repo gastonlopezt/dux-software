@@ -4,3 +4,11 @@
     font-fammily: 'Inter', sans-serif;
     /* padding: 0; */
 }
+
+.custom-dialog-header {
+    background-color: #0763E7;
+    color: #fff;
+    height: 3rem;
+    position: flex;
+    text-color: #fff;
+}

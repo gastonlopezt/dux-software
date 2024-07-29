@@ -121,9 +121,9 @@ export default function Modal() {
             />
             <Dialog
                 position="center"
-                style={{ backgroundColor: '#0763E7', border: 'none', color: '#fff', width: '541px' }}
-                closeIcon="pi pi-minus mb-4 p-2 bg-blue-500 text-white"
-                headerClassName="bg-primary-500 flex h-3rem text-white"
+                style={{ backgroundColor: '#0763E7', border: 'none', width: '541px' }}
+                closeIcon="pi pi-minus mb-4 p-2 text-white hover:bg-blue-600"
+                headerClassName="custom-dialog-header"
                 visible={visible} header={modal}
                 onHide={() => { setSelectedUser(null as any); setVisible(false); reset() }}
             >
@@ -199,7 +199,7 @@ export default function Modal() {
                                 >
                                     <option value={0} defaultValue={'selecciona el sector'} disabled>Selecciona el Sector</option>
                                     <option value={1000}>1000</option>
-                                    <option value={2000}>2000</option>
+                                    {/* <option value={2000}>2000</option> */}
                                 </select>
                             )}
                         />

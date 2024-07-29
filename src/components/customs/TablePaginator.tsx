@@ -1,8 +1,7 @@
 'use client'
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Paginator, PaginatorPageChangeEvent } from "primereact/paginator";
 import { getUsers } from "@/services/api";
-import { useFetchUsers } from '../../hooks/useFetchUsers';
 import { useUserStore } from "../../store/userStorage";
 
 export default function TablePaginator() {

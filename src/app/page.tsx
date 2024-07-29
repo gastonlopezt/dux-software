@@ -1,4 +1,4 @@
-import Table from "../components/Table";
+import Table from "../components/Layout/Table";
 import SidebarComponent from "../components/Layout/Sidebar";
 import HeaderComponent from "../components/Layout/Header";
 import { Button } from "primereact/button";

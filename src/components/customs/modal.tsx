@@ -1,16 +1,13 @@
 'use client'
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { InputText } from "primereact/inputtext";
 import { User } from '../../interface/UserInterface';
 import { createUser, deleteUser, updateUser } from "../../services/api";
-import { Toast, ToastMessage } from 'primereact/toast';
+import { Toast } from 'primereact/toast';
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
 import { useUserStore } from "../../store/userStorage";
 import { useModalStore } from "@/store/modalStorage";
-import { classNames } from "primereact/utils";
 import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
 
 
@@ -22,22 +19,25 @@ interface IFormInput {
 }
 
 export default function Modal() {
+    //Hooks para manejar estado y funcionalidades del modal 
     const { selectedUser, visible, isEditing, setSelectedUser, setVisible, setIsEditing } = useModalStore();
-    const { setUsers, removeUser } = useUserStore();
+    const { removeUser } = useUserStore();
     const initialValues: User = { id: '', usuario: '', estado: '', sector: 0 };
     const toastTopLeft = useRef<Toast>(null);
 
+    //hook de react hook form para manejar el formulario 
     const { control, handleSubmit, reset, } = useForm({
         defaultValues: selectedUser || initialValues
     })
 
-    //-------------------aseguro que se resetee el form-------------------
+    //-------------aseguro que se resetee el formulario cuando se abre el modal----------------
     useEffect(() => {
         if (visible) {
             reset(selectedUser || initialValues);
         }
     }, [visible, selectedUser, reset]);
 
+    //---------Lógica para eliminar usuarios----------
     const deleteUsers = async () => {
         try {
             deleteUser(selectedUser?.id as string)
@@ -51,6 +51,7 @@ export default function Modal() {
 
         }
     }
+    //Lógica popup
     const confirmDelete = (event: React.MouseEvent) => {
         event.preventDefault();
         confirmPopup({
@@ -61,13 +62,13 @@ export default function Modal() {
         })
     }
 
+    //--------Lógica para cancelar la creación y cerrar el modal ----------
     const onCancel = (event: React.MouseEvent) => {
         event.preventDefault();
         setSelectedUser(null as any);
         setVisible(false);
         reset(initialValues);
     }
-
 
     const onSubmit: SubmitHandler<IFormInput> = async (values: User) => {
         let user = values;
@@ -76,28 +77,27 @@ export default function Modal() {
         try {
             //CONDICIÓN PARA DETERMINAR SI VOY A EDITAR O NO
             if (isEditing) {
-                // console.log(values)
                 await updateUser(user)
                 toastTopLeft.current?.show({ severity: 'success', summary: ' Éxito!', detail: 'Usuario editado correctamente', life: 3000 });
             } else {
-                // console.log(values)
                 await createUser(user);
                 toastTopLeft.current?.show({ severity: 'success', summary: '!Éxito', detail: 'Usuario creado correctamente', life: 3000 });
             }
             setVisible(false);
         } catch (error) {
             console.error('Error al crear usuario:', error);
-            // setVisible(false);
+            setVisible(false);
             toastTopLeft.current?.show({ severity: 'error', summary: ' Error!', detail: 'Error al crear o editar usuario', life: 3000 });
         }
     }
 
+    //Modal Header
     const modal = (
         <div className="h-3rem flex flex-wrap justify-content-between">
             <p className="ml-1 mt-2">Usuario</p>
             <Button icon="pi pi-cog"
-                disabled
                 className="mt-2 text-white p-button-rounded p-button-text align-items-center gap-2"
+                disabled
             />
         </div>
     )
@@ -109,10 +109,7 @@ export default function Modal() {
             <Button
                 icon="pi pi-check"
                 className="mr-4 justify-content-center 
-                    mt-2 p-2
-                    border-round-md hover:bg-blue-800
-                    md:
-                "
+                    mt-2 p-2 border-round-md hover:bg-blue-800"
                 style={{ backgroundColor: '#0763E7' }}
                 label=" Usuario nuevo"
                 onClick={() => {
@@ -125,12 +122,11 @@ export default function Modal() {
             <Dialog
                 position="center"
                 style={{ backgroundColor: '#0763E7', border: 'none', color: '#fff', width: '541px' }}
-                closeIcon="pi pi-minus mb-4 p-2 bg-blue-500"
-                headerClassName="bg-primary-500 flex vertical-align-middle h-3rem text-white"
+                closeIcon="pi pi-minus mb-4 p-2 bg-blue-500 text-white"
+                headerClassName="bg-primary-500 flex h-3rem text-white"
                 visible={visible} header={modal}
                 onHide={() => { setSelectedUser(null as any); setVisible(false); reset() }}
             >
-
                 <form
                     id="form"
                     onSubmit={handleSubmit(onSubmit)}
@@ -226,8 +222,6 @@ export default function Modal() {
                     </div>
                 </form>
             </Dialog>
-
         </div>
-
     )
 }

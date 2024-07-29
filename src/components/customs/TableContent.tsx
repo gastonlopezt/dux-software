@@ -90,7 +90,7 @@ export default function TableContent() {
         return (
                 <div className="md:flex md:gap-2">
                     <IconField iconPosition='left' className='w-full'>
-                        <InputIcon className="pi pi-search" > </InputIcon>
+                        <InputIcon className="pi pi-search font-bold"></InputIcon>
                         <InputText
                             value={input}
                             onChange={(e) => setInput(e.target.value)}

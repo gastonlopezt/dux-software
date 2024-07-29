@@ -9,6 +9,6 @@
     background-color: #0763E7;
     color: #fff;
     height: 3rem;
-    position: flex;
+    display: flex;
     text-color: #fff;
 }

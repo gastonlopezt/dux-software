@@ -21,7 +21,7 @@ interface IFormInput {
 export default function Modal() {
     //Hooks para manejar estado y funcionalidades del modal 
     const { selectedUser, visible, isEditing, setSelectedUser, setVisible, setIsEditing } = useModalStore();
-    const { removeUser } = useUserStore();
+    const { removeUser, editUser } = useUserStore();
     const initialValues: User = { id: '', usuario: '', estado: '', sector: 0 };
     const toastTopLeft = useRef<Toast>(null);
 
@@ -78,6 +78,7 @@ export default function Modal() {
             //CONDICIÓN PARA DETERMINAR SI VOY A EDITAR O NO
             if (isEditing) {
                 await updateUser(user)
+                editUser(user)
                 toastTopLeft.current?.show({ severity: 'success', summary: ' Éxito!', detail: 'Usuario editado correctamente', life: 3000 });
             } else {
                 await createUser(user);

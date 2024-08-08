@@ -113,10 +113,10 @@ export default function TableContent() {
                         disabled
                         // onChange={(e: DropdownChangeEvent) => statusOptions.filterApplyCallback(e.value)}
                         placeholder="Selecciona un Sector"
-                        className="mr-2 w-3 hidden lg:flex"
+                        className="mr-1 w-3 hidden lg:flex"
                     />
                     <div className='hidden lg:flex'>
-                        <i className='pi pi-filter ml-2 bg-gray-700 w-3rem flex flex-wrap justify-content-center align-content-center text-white border-round-sm'></i>
+                        <i className='pi pi-filter ml-1 bg-gray-700 w-3rem flex flex-wrap justify-content-center align-content-center text-white border-round-sm'></i>
                         <i className='pi pi-sliders-v ml-2 border bg-gray-700 w-3rem flex flex-wrap justify-content-center align-content-center text-white border-round-sm'></i>
                     </div>
                 </div>

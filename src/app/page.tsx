@@ -15,7 +15,7 @@ export default function Home() {
       <LateralIcons />
       <div className="main-content" style={{ marginLeft: '4rem' }}>
         <div className="flex justify-content-between flex-wrap">
-          <h1 className="ml-2">Usuarios</h1>
+          <h1 className="ml-5">Usuarios</h1>
           <Modal />
         </div>
         <Table />

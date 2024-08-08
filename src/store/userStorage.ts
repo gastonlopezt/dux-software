@@ -18,6 +18,7 @@ interface UserState {
     setSelectedUser: (selectedUser: User) => void;
     setTotalRecords: (totalRecords: number) => void;
     removeUser: (userId: string) => void;
+    editUser: (updatedUser: User) => void;
     setStateFilter: (stateFilter: string) => void;
 }
 
@@ -44,7 +45,13 @@ export const useUserStore = create<UserState>((set) => ({
     //---ACTUALIZAR EL STATE CUANDO ELIMINA UN REGISTRO--------
     removeUser: (userId) => set((state) => ({
         users: state.users.filter((user) => user.id !== userId)
-    }))
+    })),
+    //---ACTUALIZAR EL STATE CUANDO EDITA UN REGISTRO--------
+    editUser: (updatedUser: User) => set((state) => ({
+        users: state.users.map((user) => 
+            user.id === updatedUser.id ? updatedUser : user
+        )
+    })),
 }));
 
 
